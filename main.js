@@ -2,26 +2,28 @@
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
-//selector for heart container
-const heart = document.querySelector(".like-glyph");
 //function for setTimeout 
 function pause () {document.getElementById("modal").classList.add("hidden")}
 
-//heart state true
-
-//heart state false
-function hasClass(element, className) {
-  return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
-}
-
+//selectors for heart containers
+const heart1 = document.getElementById("heart1");
+const heart2 = document.getElementById("heart2");
+const heart3 = document.getElementById("heart3");
+const heart4 = document.getElementById("heart4");
+//hearts array
+const hearts = [heart1, heart2, heart3, heart4];
+//add event listener to each heart
+hearts.forEach(listen);
 
 //event listener with mimic func and .then/.catch cain
-heart.addEventListener("click", function (){ 
+function listen (element) {
+  element.addEventListener("click", function (){ 
   mimicServerCall()
   .then(response => {
-    
-    heart.classList.add("activated-heart")
-    console.log(response);
+    if (element.classList.contains("activated-heart")) {
+      element.classList.remove("activated-heart")}
+    else {element.classList.add("activated-heart")}
+      console.log(response);
   })
   .catch((error) => {
     document.getElementById("modal").classList.remove("hidden")
@@ -30,7 +32,7 @@ heart.addEventListener("click", function (){
   })
     
   });
- 
+}
 
 
 
